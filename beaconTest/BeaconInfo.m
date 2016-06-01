@@ -113,6 +113,7 @@
         beaconInfo = [self getLocalInfo];
     }
     //    NSLog(@"beaconInfo: %@",beaconInfo);
+    NSLog(@"Count of beacons: %lu", (unsigned long)[beaconInfo count]);
     NSLog(@"First elem in beaconInfo: %@",beaconInfo[0]);
     //    NSString* description_0 = beaconInfo[0][@("description")];
     //    NSInteger major_0 = [beaconInfo[0][@("major")] integerValue];

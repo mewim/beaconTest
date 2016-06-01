@@ -1,16 +1,18 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "94B51891CA661920D294DF205CDE8A6F292D40C3",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "FBF2758A29666712820D3354DCD8221AD7EB9AE2",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "7772B4C903C6A7E22361432363165D4733679A11" : 0,
     "94B51891CA661920D294DF205CDE8A6F292D40C3" : 0,
-    "7772B4C903C6A7E22361432363165D4733679A11" : 0
+    "FBF2758A29666712820D3354DCD8221AD7EB9AE2" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "72F5ED6E-0F82-411E-B5AE-C573CDC988BF",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "7772B4C903C6A7E22361432363165D4733679A11" : "Beacon_Test\/",
     "94B51891CA661920D294DF205CDE8A6F292D40C3" : "YoutubeBeaconTutorial\/",
-    "7772B4C903C6A7E22361432363165D4733679A11" : "Beacon_Test\/"
+    "FBF2758A29666712820D3354DCD8221AD7EB9AE2" : "beaconTest\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "beaconTest",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -25,6 +27,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mewim\/YoutubeBeaconTutorial.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "94B51891CA661920D294DF205CDE8A6F292D40C3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mewim\/beaconTest.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FBF2758A29666712820D3354DCD8221AD7EB9AE2"
     }
   ]
 }

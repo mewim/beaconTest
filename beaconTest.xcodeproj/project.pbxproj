@@ -20,6 +20,7 @@
 		AE2A3FC41CF6511100CC2690 /* BeaconDict.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2A3FC21CF6511100CC2690 /* BeaconDict.m */; };
 		AEC45BB41CFF329D007E6AC4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AEC45BB31CFF329D007E6AC4 /* Default-568h@2x.png */; };
 		AEC45BB51CFF32F1007E6AC4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD99BC7F19DDA6900085CC1A /* Info.plist */; };
+		AEC45BCC1CFF7642007E6AC4 /* Trilateration.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC45BCB1CFF7642007E6AC4 /* Trilateration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		AE2A3FC11CF6511100CC2690 /* BeaconDict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconDict.h; sourceTree = "<group>"; };
 		AE2A3FC21CF6511100CC2690 /* BeaconDict.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconDict.m; sourceTree = "<group>"; };
 		AEC45BB31CFF329D007E6AC4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		AEC45BCB1CFF7642007E6AC4 /* Trilateration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trilateration.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		AD99BC6019DDA6900085CC1A /* beaconTest */ = {
 			isa = PBXGroup;
 			children = (
+				AEC45BCB1CFF7642007E6AC4 /* Trilateration.m */,
 				AD99BC6519DDA6900085CC1A /* AppDelegate.h */,
 				AD99BC6619DDA6900085CC1A /* AppDelegate.m */,
 				AD99BC6B19DDA6900085CC1A /* ViewController.h */,
@@ -160,7 +163,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = "Michael Kane";
+				ORGANIZATIONNAME = "Minrva Project";
 				TargetAttributes = {
 					AD99BC5D19DDA6900085CC1A = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -206,6 +209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEC45BCC1CFF7642007E6AC4 /* Trilateration.m in Sources */,
 				AD99BC6719DDA6900085CC1A /* AppDelegate.m in Sources */,
 				AD99BC6D19DDA6900085CC1A /* ViewController.m in Sources */,
 				AE2A3FC41CF6511100CC2690 /* BeaconDict.m in Sources */,
@@ -317,6 +321,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -335,6 +340,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (

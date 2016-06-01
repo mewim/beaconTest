@@ -44,7 +44,7 @@
         [minorDict setObject:toInsertEncode forKey:[NSString stringWithFormat:@"%ld",(long)minor]];
         NSData *retval =[minorDict objectForKey:[NSString stringWithFormat:@"%ld",(long)major]];
         coord new;
-        [retval getBytes:&new];
+        [retval getBytes:&new length:sizeof(coord)];
 //        NSLog(@"%@", _dict);
 //        NSLog(@"%@", minorDict);
 
@@ -62,7 +62,7 @@
     if(minorDict){
         NSData* retval =[minorDict objectForKey:[NSString stringWithFormat:@"%ld",(long)minor]];
         if(retval){
-            [retval getBytes:&retvalDecode];
+            [retval getBytes:&retvalDecode length:sizeof(coord)];
         }
     }
     return retvalDecode;

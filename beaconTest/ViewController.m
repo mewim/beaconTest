@@ -12,7 +12,8 @@
 #import <EstimoteSDK/EstimoteSDK.h>
 #import <EstimoteSDK/ESTBeaconManager.h>
 #import "BeaconInfo.h"
-#include "BeaconDict.h"
+#import "BeaconDict.h"
+#import "Trilateration.m"
 
 @interface ViewController () <ESTBeaconManagerDelegate>
 @property (nonatomic, strong) ESTBeacon *beacon;
@@ -88,6 +89,13 @@
     }
 }
 
+-(NSMutableArray *) getPoint:(NSInteger)x joinY:(NSInteger)y{
+    NSMutableArray *retval = [[NSMutableArray alloc] initWithCapacity:0];
+    [retval addObject:[NSNumber numberWithFloat:((625.12 * y - 312.56) / 100)]];
+    [retval addObject:[NSNumber numberWithFloat:((4674.28 - 623.24 * x)/100)]];
+    return retval;
+}
+
 -(void)updateTableData:(NSArray *)sortedBeacons
 {
     [_tableData removeAllObjects];
@@ -103,6 +111,43 @@
         NSString * currString =  [NSString stringWithFormat:@"x: %ld, y: %ld, distance: %f", (long)currCoord.x, (long)currCoord.y, accuracy];
         [_tableData addObject:currString];
     }
+    
+//        NSMutableArray *P1 = [[NSMutableArray alloc] initWithCapacity:0];
+//        [P1 addObject:[NSNumber numberWithDouble:3]];
+//        [P1 addObject:[NSNumber numberWithDouble:0]];
+//    
+//    
+//        NSMutableArray *P2 = [[NSMutableArray alloc] initWithCapacity:0];
+//        [P2 addObject:[NSNumber numberWithDouble:9]];
+//        [P2 addObject:[NSNumber numberWithDouble:0]];
+//    
+//        NSMutableArray *P3 = [[NSMutableArray alloc] initWithCapacity:0];
+//        [P3 addObject:[NSNumber numberWithDouble:4]];
+//        [P3 addObject:[NSNumber numberWithDouble:8]];
+//    
+//        //this is the distance between all the points and the unknown point
+//        float DistA = 6.4031;
+//        float DistB = 4.1231;
+//        float DistC = 5.6568;
+    NSString *disp_text;
+    if([sortedBeacons count] >= 3){
+        ESTBeacon* firstBeacon = sortedBeacons[0], *secondBeacon = sortedBeacons[1], *thirdBeacon = sortedBeacons[2];
+        coord firstCoord = [_beconDict getCoord:[[firstBeacon major] integerValue] joinMinor:[[firstBeacon minor] integerValue]];
+        coord secondCoord = [_beconDict getCoord:[[secondBeacon major] integerValue] joinMinor:[[secondBeacon minor] integerValue]];
+        coord thirdCoord = [_beconDict getCoord:[[thirdBeacon major] integerValue] joinMinor:[[thirdBeacon minor] integerValue]];
+        NSMutableArray *P1 = [self getPoint:firstCoord.x joinY:firstCoord.y];
+        NSMutableArray *P2 = [self getPoint:secondCoord.x joinY:secondCoord.y];
+        NSMutableArray *P3 = [self getPoint:thirdCoord.x joinY:thirdCoord.y];
+        float DistA = [firstBeacon accuracy];
+        float DistB = [secondBeacon accuracy];
+        float DistC = [thirdBeacon accuracy];
+        userCoord coord = trilateration(P1, P2, P3, DistA, DistB, DistC);
+        disp_text = [NSString stringWithFormat:@"User's Location:\nx: %f, y: %f", coord.x, coord.y];
+    }
+    else{
+        disp_text= [NSString stringWithFormat:@"User's Location:\n unavailable"];
+    }
+    [self.lable setText:disp_text];
     [self.tableView reloadData] ;
 }
 
