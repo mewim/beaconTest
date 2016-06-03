@@ -81,11 +81,11 @@
 -(void)beaconManager:(ESTBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
 //    NSLog(@"beacons.count: %lu", (unsigned long)beacons.count);
-    NSSortDescriptor *accuracyDescriptor = [[NSSortDescriptor alloc] initWithKey:@"accuracy" ascending:YES];
-    NSArray *sortDescriptors = @[accuracyDescriptor];
-    NSArray *sortedBeacons = [beacons sortedArrayUsingDescriptors:sortDescriptors];
-    if (sortedBeacons.count > 0) {
-        [self updateTableData:sortedBeacons];
+//    NSSortDescriptor *accuracyDescriptor = [[NSSortDescriptor alloc] initWithKey:@"accuracy" ascending:YES];
+//    NSArray *sortDescriptors = @[accuracyDescriptor];
+//    NSArray *sortedBeacons = [beacons sortedArrayUsingDescriptors:sortDescriptors];
+    if (beacons.count > 0) {
+        [self updateTableData:beacons];
     }
 }
 
@@ -96,11 +96,12 @@
     return retval;
 }
 
--(void)updateTableData:(NSArray *)sortedBeacons
+-(void)updateTableData:(NSArray *)beacons
 {
     [_tableData removeAllObjects];
-    for(int i = 0; i < [sortedBeacons count]; ++i){
-        ESTBeacon* currBeacon = sortedBeacons[i];
+    NSMutableArray * sortedBeacons = [NSMutableArray array];
+    for(int i = 0; i < [beacons count]; ++i){
+        ESTBeacon* currBeacon = beacons[i];
         NSInteger major = [[currBeacon major] integerValue];
         NSInteger minor = [[currBeacon minor] integerValue];
         CLLocationAccuracy accuracy = [currBeacon accuracy];
@@ -108,33 +109,21 @@
         if(accuracy < 0 || currCoord.x < 0 || currCoord.y < 0){
             continue;
         }
+        [sortedBeacons addObject:currBeacon];
         NSString * currString =  [NSString stringWithFormat:@"x: %ld, y: %ld, distance: %f", (long)currCoord.x, (long)currCoord.y, accuracy];
         [_tableData addObject:currString];
     }
     
-//        NSMutableArray *P1 = [[NSMutableArray alloc] initWithCapacity:0];
-//        [P1 addObject:[NSNumber numberWithDouble:3]];
-//        [P1 addObject:[NSNumber numberWithDouble:0]];
-//    
-//    
-//        NSMutableArray *P2 = [[NSMutableArray alloc] initWithCapacity:0];
-//        [P2 addObject:[NSNumber numberWithDouble:9]];
-//        [P2 addObject:[NSNumber numberWithDouble:0]];
-//    
-//        NSMutableArray *P3 = [[NSMutableArray alloc] initWithCapacity:0];
-//        [P3 addObject:[NSNumber numberWithDouble:4]];
-//        [P3 addObject:[NSNumber numberWithDouble:8]];
-//    
-//        //this is the distance between all the points and the unknown point
-//        float DistA = 6.4031;
-//        float DistB = 4.1231;
-//        float DistC = 5.6568;
     NSString *disp_text;
     if([sortedBeacons count] >= 3){
         ESTBeacon* firstBeacon = sortedBeacons[0], *secondBeacon = sortedBeacons[1], *thirdBeacon = sortedBeacons[2];
         coord firstCoord = [_beconDict getCoord:[[firstBeacon major] integerValue] joinMinor:[[firstBeacon minor] integerValue]];
         coord secondCoord = [_beconDict getCoord:[[secondBeacon major] integerValue] joinMinor:[[secondBeacon minor] integerValue]];
         coord thirdCoord = [_beconDict getCoord:[[thirdBeacon major] integerValue] joinMinor:[[thirdBeacon minor] integerValue]];
+        for(int i = 3; (((firstCoord.x == secondCoord.x) && (secondCoord.x == thirdCoord.x)) || ((firstCoord.y == secondCoord.y) && (secondCoord.y == thirdCoord.y))) && (i < [sortedBeacons count]); ++i){
+            thirdBeacon = sortedBeacons[i];
+            thirdCoord = [_beconDict getCoord:[[thirdBeacon major] integerValue] joinMinor:[[thirdBeacon minor] integerValue]];
+        }
         NSMutableArray *P1 = [self getPoint:firstCoord.x joinY:firstCoord.y];
         NSMutableArray *P2 = [self getPoint:secondCoord.x joinY:secondCoord.y];
         NSMutableArray *P3 = [self getPoint:thirdCoord.x joinY:thirdCoord.y];
