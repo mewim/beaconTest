@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B73D4FD1D070DD40096F387 /* user_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B73D4FC1D070DD40096F387 /* user_image.png */; };
+		9B73D4FF1D0711700096F387 /* ugl_map.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B73D4FE1D0711700096F387 /* ugl_map.png */; };
 		AD99BC6419DDA6900085CC1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD99BC6319DDA6900085CC1A /* main.m */; };
 		AD99BC6719DDA6900085CC1A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD99BC6619DDA6900085CC1A /* AppDelegate.m */; };
 		AD99BC6D19DDA6900085CC1A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD99BC6C19DDA6900085CC1A /* ViewController.m */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B73D4FC1D070DD40096F387 /* user_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user_image.png; path = ../../user_image.png; sourceTree = "<group>"; };
+		9B73D4FE1D0711700096F387 /* ugl_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ugl_map.png; sourceTree = "<group>"; };
 		AD99BC5E19DDA6900085CC1A /* beaconTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = beaconTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD99BC6219DDA6900085CC1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD99BC6319DDA6900085CC1A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 		AD99BC6019DDA6900085CC1A /* beaconTest */ = {
 			isa = PBXGroup;
 			children = (
+				9B73D4FC1D070DD40096F387 /* user_image.png */,
+				9B73D4FE1D0711700096F387 /* ugl_map.png */,
 				AEC45BCB1CFF7642007E6AC4 /* Trilateration.m */,
 				AD99BC6519DDA6900085CC1A /* AppDelegate.h */,
 				AD99BC6619DDA6900085CC1A /* AppDelegate.m */,
@@ -167,7 +173,7 @@
 				TargetAttributes = {
 					AD99BC5D19DDA6900085CC1A = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = UPV4CB4H6W;
+						DevelopmentTeam = 96QKJNA6AA;
 					};
 				};
 			};
@@ -195,10 +201,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD99BC7019DDA6900085CC1A /* Main.storyboard in Resources */,
+				9B73D4FF1D0711700096F387 /* ugl_map.png in Resources */,
 				AEC45BB41CFF329D007E6AC4 /* Default-568h@2x.png in Resources */,
 				AD99BC7519DDA6900085CC1A /* LaunchScreen.xib in Resources */,
 				AEC45BB51CFF32F1007E6AC4 /* Info.plist in Resources */,
 				AD99BC7219DDA6900085CC1A /* Images.xcassets in Resources */,
+				9B73D4FD1D070DD40096F387 /* user_image.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,9 +24,26 @@
 @end
 
 @implementation ViewController
+{
+    UIImageView *lib;
+    UIImageView *userLocation;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Adding UGL Map
+    lib = [[UIImageView alloc] initWithFrame:CGRectMake(0, 164, 320, 339)];
+    lib.image=[UIImage imageNamed:@"ugl_map.png"];
+    [self.view addSubview:lib];
+    
+    // Adding User Location Pin
+    userLocation = [[UIImageView alloc] initWithFrame:CGRectMake(150, 300, 20, 20)];
+    userLocation.image=[UIImage imageNamed:@"user_image.png"];
+
+
+    
+    
 
     //Create your UUID
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"B9407f30-f5f8-466e-aff9-25556b57fe6d"];
@@ -80,7 +97,7 @@
 
 -(void)beaconManager:(ESTBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
-//    NSLog(@"beacons.count: %lu", (unsigned long)beacons.count);
+    NSLog(@"beacons.count: %lu", (unsigned long)beacons.count);
 //    NSSortDescriptor *accuracyDescriptor = [[NSSortDescriptor alloc] initWithKey:@"accuracy" ascending:YES];
 //    NSArray *sortDescriptors = @[accuracyDescriptor];
 //    NSArray *sortedBeacons = [beacons sortedArrayUsingDescriptors:sortDescriptors];
@@ -132,12 +149,21 @@
         float DistC = [thirdBeacon accuracy];
         userCoord coord = trilateration(P1, P2, P3, DistA, DistB, DistC);
         disp_text = [NSString stringWithFormat:@"User's Location:\nx: %f, y: %f", coord.x, coord.y];
+        
+        if (!isnan(coord.x) && !isnan(coord.y)){
+            CGRect newLocation = CGRectMake(coord.x*2, 164+(coord.y*7), 20, 20);
+            userLocation.frame = newLocation;
+            [self.view addSubview:userLocation];
+        }
     }
     else{
         disp_text= [NSString stringWithFormat:@"User's Location:\n unavailable"];
+        [userLocation removeFromSuperview];
     }
     [self.lable setText:disp_text];
     [self.tableView reloadData] ;
+    
+    
 }
 
 @end
