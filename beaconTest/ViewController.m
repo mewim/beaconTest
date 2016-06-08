@@ -14,6 +14,7 @@
 #import "BeaconInfo.h"
 #import "BeaconDict.h"
 #import "Trilateration.m"
+#import "PositionRefiner.h"
 
 @interface ViewController () <ESTBeaconManagerDelegate>
 @property (nonatomic, strong) ESTBeacon *beacon;
@@ -21,6 +22,7 @@
 @property (nonatomic, strong) CLBeaconRegion *beaconRegion;
 @property (nonatomic, strong) BeaconDict* beconDict;
 @property (nonatomic, strong) NSMutableArray *tableData;
+@property (nonatomic, strong) PositionRefiner *refiner;
 @end
 
 @implementation ViewController
@@ -33,7 +35,7 @@
     [super viewDidLoad];
     
     // Adding UGL Map
-    lib = [[UIImageView alloc] initWithFrame:CGRectMake(0, 164, 320, 339)];
+    lib = [[UIImageView alloc] initWithFrame:CGRectMake(0, 164, 320, 320)];
     lib.image=[UIImage imageNamed:@"ugl_map.png"];
     [self.view addSubview:lib];
     
@@ -41,8 +43,8 @@
     userLocation = [[UIImageView alloc] initWithFrame:CGRectMake(150, 300, 20, 20)];
     userLocation.image=[UIImage imageNamed:@"user_image.png"];
     
-
-
+    // Do not start the clock here, start when we get the first coord
+    _refiner = nil;
     
     
 
@@ -132,7 +134,7 @@
         [_tableData addObject:currString];
     }
     
-    NSString *disp_text;
+    NSString *disp_text, *refined_text;
     if([sortedBeacons count] >= 3){
         ESTBeacon* firstBeacon = sortedBeacons[0], *secondBeacon = sortedBeacons[1], *thirdBeacon = sortedBeacons[2];
         coord firstCoord = [_beconDict getCoord:[[firstBeacon major] integerValue] joinMinor:[[firstBeacon minor] integerValue]];
@@ -149,19 +151,37 @@
         float DistB = [secondBeacon accuracy];
         float DistC = [thirdBeacon accuracy];
         userCoord coord = trilateration(P1, P2, P3, DistA, DistB, DistC);
-        disp_text = [NSString stringWithFormat:@"User's Location:\nx: %f, y: %f", coord.x, coord.y];
         
         if (!isnan(coord.x) && !isnan(coord.y)){
-            CGRect newLocation = CGRectMake(coord.x*3, 164+(coord.y*6), 20, 20);
+            if(_refiner == nil){
+                _refiner = [[PositionRefiner alloc] init];
+            }
+            userCoord refinedCoord = [_refiner refinePosition:coord];
+            disp_text = [NSString stringWithFormat:@"User's Location:\nx: %f, y: %f", coord.x, coord.y];
+            refined_text= [NSString stringWithFormat:@"Refined Location:\nx: %f, y: %f", refinedCoord.x, refinedCoord.y];
+            
+            userCoord ORIGIN = {0.0, 0.0};
+            userCoord canvasDims = {320, 320};
+            userCoord MAP_DIMS = {56.244f, 55.9f};
+            userCoord translated = {-1.0f, -1.0f};
+            
+            translated.x = (float) (refinedCoord.x + ORIGIN.x) * canvasDims.x / MAP_DIMS.x - 10.0;
+            translated.x = (translated.x < 0)? 0: translated.x;
+            translated.y = (float) (refinedCoord.y + ORIGIN.y) * canvasDims.y / MAP_DIMS.y + 154.0;
+            CGRect newLocation = CGRectMake(translated.x, translated.y, 20, 20);
             userLocation.frame = newLocation;
             [self.view addSubview:userLocation];
         }
     }
     else{
         disp_text= [NSString stringWithFormat:@"User's Location:\n unavailable"];
+        refined_text= [NSString stringWithFormat:@"Refined Location:\n unavailable"];
+
         //[userLocation removeFromSuperview];
     }
     [self.lable setText:disp_text];
+    [self.refined setText:refined_text];
+
     [self.tableView reloadData] ;
     
     

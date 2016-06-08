@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9B73D4FD1D070DD40096F387 /* user_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B73D4FC1D070DD40096F387 /* user_image.png */; };
 		9B73D4FF1D0711700096F387 /* ugl_map.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B73D4FE1D0711700096F387 /* ugl_map.png */; };
 		AD99BC6419DDA6900085CC1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD99BC6319DDA6900085CC1A /* main.m */; };
 		AD99BC6719DDA6900085CC1A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD99BC6619DDA6900085CC1A /* AppDelegate.m */; };
@@ -20,13 +19,14 @@
 		AE2A3FBB1CF643A600CC2690 /* EstimoteSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2A3FBA1CF643A600CC2690 /* EstimoteSDK.framework */; };
 		AE2A3FC31CF6511100CC2690 /* BeaconInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2A3FC01CF6511100CC2690 /* BeaconInfo.m */; };
 		AE2A3FC41CF6511100CC2690 /* BeaconDict.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2A3FC21CF6511100CC2690 /* BeaconDict.m */; };
+		AE416E0C1D0874680006A765 /* user_image.png in Resources */ = {isa = PBXBuildFile; fileRef = AE416E0B1D0874680006A765 /* user_image.png */; };
+		AE416E151D087FAB0006A765 /* PositionRefiner.m in Sources */ = {isa = PBXBuildFile; fileRef = AE416E141D087FAB0006A765 /* PositionRefiner.m */; };
 		AEC45BB41CFF329D007E6AC4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AEC45BB31CFF329D007E6AC4 /* Default-568h@2x.png */; };
 		AEC45BB51CFF32F1007E6AC4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD99BC7F19DDA6900085CC1A /* Info.plist */; };
 		AEC45BCC1CFF7642007E6AC4 /* Trilateration.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC45BCB1CFF7642007E6AC4 /* Trilateration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9B73D4FC1D070DD40096F387 /* user_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user_image.png; path = ../../user_image.png; sourceTree = "<group>"; };
 		9B73D4FE1D0711700096F387 /* ugl_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ugl_map.png; sourceTree = "<group>"; };
 		AD99BC5E19DDA6900085CC1A /* beaconTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = beaconTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD99BC6219DDA6900085CC1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +47,9 @@
 		AE2A3FC01CF6511100CC2690 /* BeaconInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconInfo.m; sourceTree = "<group>"; };
 		AE2A3FC11CF6511100CC2690 /* BeaconDict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconDict.h; sourceTree = "<group>"; };
 		AE2A3FC21CF6511100CC2690 /* BeaconDict.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconDict.m; sourceTree = "<group>"; };
+		AE416E0B1D0874680006A765 /* user_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_image.png; sourceTree = "<group>"; };
+		AE416E131D087FAB0006A765 /* PositionRefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionRefiner.h; sourceTree = "<group>"; };
+		AE416E141D087FAB0006A765 /* PositionRefiner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionRefiner.m; sourceTree = "<group>"; };
 		AEC45BB31CFF329D007E6AC4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		AEC45BCB1CFF7642007E6AC4 /* Trilateration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trilateration.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,7 +90,9 @@
 		AD99BC6019DDA6900085CC1A /* beaconTest */ = {
 			isa = PBXGroup;
 			children = (
-				9B73D4FC1D070DD40096F387 /* user_image.png */,
+				AE416E131D087FAB0006A765 /* PositionRefiner.h */,
+				AE416E141D087FAB0006A765 /* PositionRefiner.m */,
+				AE416E0B1D0874680006A765 /* user_image.png */,
 				9B73D4FE1D0711700096F387 /* ugl_map.png */,
 				AEC45BCB1CFF7642007E6AC4 /* Trilateration.m */,
 				AD99BC6519DDA6900085CC1A /* AppDelegate.h */,
@@ -200,13 +205,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE416E0C1D0874680006A765 /* user_image.png in Resources */,
 				AD99BC7019DDA6900085CC1A /* Main.storyboard in Resources */,
 				9B73D4FF1D0711700096F387 /* ugl_map.png in Resources */,
 				AEC45BB41CFF329D007E6AC4 /* Default-568h@2x.png in Resources */,
 				AD99BC7519DDA6900085CC1A /* LaunchScreen.xib in Resources */,
 				AEC45BB51CFF32F1007E6AC4 /* Info.plist in Resources */,
 				AD99BC7219DDA6900085CC1A /* Images.xcassets in Resources */,
-				9B73D4FD1D070DD40096F387 /* user_image.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +228,7 @@
 				AE2A3FC41CF6511100CC2690 /* BeaconDict.m in Sources */,
 				AD99BC6419DDA6900085CC1A /* main.m in Sources */,
 				AE2A3FC31CF6511100CC2690 /* BeaconInfo.m in Sources */,
+				AE416E151D087FAB0006A765 /* PositionRefiner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UILabel* lable;
+@property (strong, nonatomic) IBOutlet UILabel* refined;
 
 @end
 
