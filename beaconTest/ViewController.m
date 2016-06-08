@@ -40,6 +40,7 @@
     // Adding User Location Pin
     userLocation = [[UIImageView alloc] initWithFrame:CGRectMake(150, 300, 20, 20)];
     userLocation.image=[UIImage imageNamed:@"user_image.png"];
+    
 
 
     
@@ -151,14 +152,14 @@
         disp_text = [NSString stringWithFormat:@"User's Location:\nx: %f, y: %f", coord.x, coord.y];
         
         if (!isnan(coord.x) && !isnan(coord.y)){
-            CGRect newLocation = CGRectMake(coord.x*2, 164+(coord.y*7), 20, 20);
+            CGRect newLocation = CGRectMake(coord.x*3, 164+(coord.y*6), 20, 20);
             userLocation.frame = newLocation;
             [self.view addSubview:userLocation];
         }
     }
     else{
         disp_text= [NSString stringWithFormat:@"User's Location:\n unavailable"];
-        [userLocation removeFromSuperview];
+        //[userLocation removeFromSuperview];
     }
     [self.lable setText:disp_text];
     [self.tableView reloadData] ;
