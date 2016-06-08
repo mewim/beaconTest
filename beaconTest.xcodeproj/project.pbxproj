@@ -21,6 +21,7 @@
 		AE2A3FC41CF6511100CC2690 /* BeaconDict.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2A3FC21CF6511100CC2690 /* BeaconDict.m */; };
 		AE416E0C1D0874680006A765 /* user_image.png in Resources */ = {isa = PBXBuildFile; fileRef = AE416E0B1D0874680006A765 /* user_image.png */; };
 		AE416E151D087FAB0006A765 /* PositionRefiner.m in Sources */ = {isa = PBXBuildFile; fileRef = AE416E141D087FAB0006A765 /* PositionRefiner.m */; };
+		AE416E1E1D08CAF20006A765 /* BeaconSample.m in Sources */ = {isa = PBXBuildFile; fileRef = AE416E1D1D08CAF20006A765 /* BeaconSample.m */; };
 		AEC45BB41CFF329D007E6AC4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AEC45BB31CFF329D007E6AC4 /* Default-568h@2x.png */; };
 		AEC45BB51CFF32F1007E6AC4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD99BC7F19DDA6900085CC1A /* Info.plist */; };
 		AEC45BCC1CFF7642007E6AC4 /* Trilateration.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC45BCB1CFF7642007E6AC4 /* Trilateration.m */; };
@@ -50,6 +51,8 @@
 		AE416E0B1D0874680006A765 /* user_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_image.png; sourceTree = "<group>"; };
 		AE416E131D087FAB0006A765 /* PositionRefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionRefiner.h; sourceTree = "<group>"; };
 		AE416E141D087FAB0006A765 /* PositionRefiner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionRefiner.m; sourceTree = "<group>"; };
+		AE416E1C1D08CAF20006A765 /* BeaconSample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconSample.h; sourceTree = "<group>"; };
+		AE416E1D1D08CAF20006A765 /* BeaconSample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconSample.m; sourceTree = "<group>"; };
 		AEC45BB31CFF329D007E6AC4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		AEC45BCB1CFF7642007E6AC4 /* Trilateration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trilateration.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +93,8 @@
 		AD99BC6019DDA6900085CC1A /* beaconTest */ = {
 			isa = PBXGroup;
 			children = (
+				AE416E1D1D08CAF20006A765 /* BeaconSample.m */,
+				AE416E1C1D08CAF20006A765 /* BeaconSample.h */,
 				AE416E131D087FAB0006A765 /* PositionRefiner.h */,
 				AE416E141D087FAB0006A765 /* PositionRefiner.m */,
 				AE416E0B1D0874680006A765 /* user_image.png */,
@@ -225,6 +230,7 @@
 				AEC45BCC1CFF7642007E6AC4 /* Trilateration.m in Sources */,
 				AD99BC6719DDA6900085CC1A /* AppDelegate.m in Sources */,
 				AD99BC6D19DDA6900085CC1A /* ViewController.m in Sources */,
+				AE416E1E1D08CAF20006A765 /* BeaconSample.m in Sources */,
 				AE2A3FC41CF6511100CC2690 /* BeaconDict.m in Sources */,
 				AD99BC6419DDA6900085CC1A /* main.m in Sources */,
 				AE2A3FC31CF6511100CC2690 /* BeaconInfo.m in Sources */,

@@ -29,7 +29,6 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:newVersion forKey:@"beaconVersion"];
     [defaults synchronize];
-    
 }
 
 +(NSInteger)getOnlineVersion

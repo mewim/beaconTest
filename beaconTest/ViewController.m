@@ -211,8 +211,8 @@
             _refiner = [[PositionRefiner alloc] init];
         }
         userCoord refinedCoord = [_refiner refinePosition:currCoord];
-        disp_text = [NSString stringWithFormat:@"User's Location:\nx: %2f, y: %2f", currCoord.x, currCoord.y];
-        refined_text= [NSString stringWithFormat:@"Refined Location:\nx: %2f, y: %2f", refinedCoord.x, refinedCoord.y];
+        disp_text = [NSString stringWithFormat:@"Raw Location:\nx: %.2f, y: %.2f", currCoord.x, currCoord.y];
+        refined_text= [NSString stringWithFormat:@"Refined Location:\nx: %.2f, y: %.2f", refinedCoord.x, refinedCoord.y];
         
         userCoord ORIGIN = {0.0, 0.0};
         userCoord canvasDims = {320, 320};
@@ -227,7 +227,7 @@
         [self.view addSubview:userLocation];
     }
     else{
-        disp_text= [NSString stringWithFormat:@"User's Location:\n unavailable"];
+        disp_text= [NSString stringWithFormat:@"Raw Location:\n unavailable"];
         refined_text= [NSString stringWithFormat:@"Refined Location:\n unavailable"];
 
         //[userLocation removeFromSuperview];
