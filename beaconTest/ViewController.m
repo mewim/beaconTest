@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <CoreLocation/CoreLocation.h>
+#import <CoreMotion/CoreMotion.h>
 #import <EstimoteSDK/EstimoteSDK.h>
 #import <EstimoteSDK/ESTBeaconManager.h>
 #import "BeaconInfo.h"
@@ -23,6 +24,7 @@
 @property (nonatomic, strong) BeaconDict* beconDict;
 @property (nonatomic, strong) NSMutableArray *tableData;
 @property (nonatomic, strong) PositionRefiner *refiner;
+@property (nonatomic, strong) CMPedometer *pedometer;
 @end
 
 @implementation ViewController
@@ -34,10 +36,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Register segment control
+    [self.segments addTarget:self action:@selector(changeSegment:)
+                    forControlEvents:UIControlEventValueChanged];
+    
     // Adding UGL Map
     lib = [[UIImageView alloc] initWithFrame:CGRectMake(0, 164, 320, 320)];
     lib.image=[UIImage imageNamed:@"ugl_map.png"];
-    [self.view addSubview:lib];
+    [self.mapView addSubview:lib];
     
     // Adding User Location Pin
     userLocation = [[UIImageView alloc] initWithFrame:CGRectMake(150, 300, 20, 20)];
@@ -70,6 +76,15 @@
 
 
     NSLog(@"%@", _beconDict);
+    
+    // Ask permission for CoreMotion
+    if([CMMotionActivityManager isActivityAvailable] && [CMPedometer isDistanceAvailable]){
+        NSLog(@"CoreMotion is enabled.");
+        _pedometer = [[CMPedometer alloc] init];
+    }
+    else{
+       NSLog(@"CoreMotion is disabled or not supported.");
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -211,8 +226,8 @@
             _refiner = [[PositionRefiner alloc] init];
         }
         userCoord refinedCoord = [_refiner refinePosition:currCoord];
-        disp_text = [NSString stringWithFormat:@"Raw Location:\nx: %.2f, y: %.2f", currCoord.x, currCoord.y];
-        refined_text= [NSString stringWithFormat:@"Refined Location:\nx: %.2f, y: %.2f", refinedCoord.x, refinedCoord.y];
+        disp_text = [NSString stringWithFormat:@"Raw:\nx: %.2f, y: %.2f", currCoord.x, currCoord.y];
+        refined_text= [NSString stringWithFormat:@"Refined:\nx: %.2f, y: %.2f", refinedCoord.x, refinedCoord.y];
         
         userCoord ORIGIN = {0.0, 0.0};
         userCoord canvasDims = {320, 320};
@@ -224,11 +239,11 @@
         translated.y = (float) (refinedCoord.y + ORIGIN.y) * canvasDims.y / MAP_DIMS.y + 154.0;
         CGRect newLocation = CGRectMake(translated.x, translated.y, 20, 20);
         userLocation.frame = newLocation;
-        [self.view addSubview:userLocation];
+        [self.mapView addSubview:userLocation];
     }
     else{
-        disp_text= [NSString stringWithFormat:@"Raw Location:\n unavailable"];
-        refined_text= [NSString stringWithFormat:@"Refined Location:\n unavailable"];
+        disp_text= [NSString stringWithFormat:@"Raw:\n unavailable"];
+        refined_text= [NSString stringWithFormat:@"Refined:\n unavailable"];
 
         //[userLocation removeFromSuperview];
     }
@@ -240,4 +255,25 @@
     
 }
 
+-(void)changeSegment:(id)sender {
+    switch(_segments.selectedSegmentIndex){
+        case 0:
+            self.beaconsView.hidden = TRUE;
+            self.motionView.hidden = TRUE;
+            self.mapView.hidden = FALSE;
+            break;
+        case 1:
+            self.beaconsView.hidden = FALSE;
+            self.motionView.hidden = TRUE;
+            self.mapView.hidden = TRUE;
+            break;
+        case 2:
+            self.beaconsView.hidden = TRUE;
+            self.motionView.hidden = FALSE;
+            self.mapView.hidden = TRUE;
+            break;
+        default:
+            break;
+    }
+}
 @end

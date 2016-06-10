@@ -7,7 +7,6 @@
 //
 
 #import "PositionRefiner.h"
-
 @implementation PositionRefiner
 -(id) init{
     self = [super init];

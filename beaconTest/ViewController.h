@@ -13,6 +13,10 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UILabel* lable;
 @property (strong, nonatomic) IBOutlet UILabel* refined;
+@property (strong, nonatomic) IBOutlet UIView *motionView;
+@property (strong, nonatomic) IBOutlet UIView *beaconsView;
+@property (strong, nonatomic) IBOutlet UIView *mapView;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segments;
 
 @end
 
