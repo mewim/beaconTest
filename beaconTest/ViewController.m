@@ -276,4 +276,9 @@
             break;
     }
 }
+- (IBAction)startButton:(id)sender {
+}
+
+- (IBAction)stopButton:(id)sender {
+}
 @end

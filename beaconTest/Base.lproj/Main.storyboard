@@ -49,11 +49,17 @@
                                         <rect key="frame" x="14" y="308" width="34" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Start"/>
+                                        <connections>
+                                            <action selector="startButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="teT-gC-b3A"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oQy-cS-faO">
                                         <rect key="frame" x="15" y="346" width="32" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Stop"/>
+                                        <connections>
+                                            <action selector="stopButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="RP5-Xx-i8Q"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </view>
@@ -106,11 +112,15 @@
                     <size key="freeformSize" width="1500" height="568"/>
                     <connections>
                         <outlet property="beaconsView" destination="R15-Zt-JTr" id="N4Y-4G-h9m"/>
+                        <outlet property="cadence" destination="cR3-a1-mjt" id="MNi-D0-dON"/>
+                        <outlet property="distance" destination="fqy-Fd-O2j" id="cYm-QI-iec"/>
                         <outlet property="lable" destination="b72-Nb-nWb" id="vAJ-dN-cQf"/>
                         <outlet property="mapView" destination="x5T-N4-ysR" id="hMt-AM-F2e"/>
                         <outlet property="motionView" destination="VLv-eP-vrZ" id="2M8-aN-gLK"/>
+                        <outlet property="pace" destination="F6Q-Us-t2d" id="bvn-4R-mOc"/>
                         <outlet property="refined" destination="CME-hR-MS2" id="Pjg-hv-KFr"/>
                         <outlet property="segments" destination="fEm-lT-aCl" id="9LH-py-MKK"/>
+                        <outlet property="steps" destination="qlG-7d-BaY" id="p6B-JJ-HE1"/>
                         <outlet property="tableView" destination="XPT-go-9y7" id="4AC-Ii-Nhr"/>
                     </connections>
                 </viewController>

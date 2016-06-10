@@ -17,6 +17,12 @@
 @property (strong, nonatomic) IBOutlet UIView *beaconsView;
 @property (strong, nonatomic) IBOutlet UIView *mapView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segments;
+@property (weak, nonatomic) IBOutlet UILabel *distance;
+@property (weak, nonatomic) IBOutlet UILabel *pace;
+@property (weak, nonatomic) IBOutlet UILabel *cadence;
+@property (weak, nonatomic) IBOutlet UILabel *steps;
+- (IBAction)startButton:(id)sender;
+- (IBAction)stopButton:(id)sender;
 
 @end
 
