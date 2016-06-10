@@ -74,7 +74,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.27083909746552076" green="0.95686274510000002" blue="0.19213460998253787" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" id="R15-Zt-JTr" userLabel="Beacons">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -104,12 +103,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.4049365036538618" blue="0.63644536638742166" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" id="x5T-N4-ysR" userLabel="Map">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.82308548743854792" blue="0.24251185709219078" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="fEm-lT-aCl">
                                 <rect key="frame" x="5" y="520" width="310" height="29"/>
@@ -119,11 +116,6 @@
                                     <segment title="Beacons"/>
                                     <segment title="Motion"/>
                                 </segments>
-                                <connections>
-                                    <action selector="segmentValueCahnged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="Az2-BQ-YIE"/>
-                                    <action selector="segmentValueChanged" destination="vXZ-lx-hvc" eventType="valueChanged" id="98n-VR-76Z"/>
-                                    <action selector="segmentValueChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="0RM-op-W7O"/>
-                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
