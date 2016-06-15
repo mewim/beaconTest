@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSMutableArray *tableData;
 @property (nonatomic, strong) PositionRefiner *refiner;
 @property (nonatomic, strong) CMPedometer *pedometer;
+@property (nonatomic, strong) CMMotionActivityManager* activityManager;
 @end
 
 @implementation ViewController
@@ -60,7 +61,8 @@
     //set up the beacon manager
     self.beaconManager = [[ESTBeaconManager alloc] init];
     self.beaconManager.delegate = self;
-    
+    self.beaconManager.avoidUnknownStateBeacons = TRUE;
+    self.beaconManager.preventUnknownUpdateCount = 3;
     //set up the beacon region
     self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
         identifier:@"RegionIdenifier"];
@@ -77,10 +79,56 @@
 
     NSLog(@"%@", _beconDict);
     
-    // Ask permission for CoreMotion
+    // Check if CoreMotion is enabled
     if([CMMotionActivityManager isActivityAvailable] && [CMPedometer isDistanceAvailable]){
         NSLog(@"CoreMotion is enabled.");
+        // Init Pedometer and ActivityManager
         _pedometer = [[CMPedometer alloc] init];
+        _activityManager = [[CMMotionActivityManager alloc] init];
+        
+        // Start Activity Manager and Pedometer
+        self.activityStatus.text = [NSString stringWithFormat:@"Motion Started"];
+        [self.activityManager startActivityUpdatesToQueue:
+        [[NSOperationQueue alloc] init]
+        withHandler:^(CMMotionActivity *activity) {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 if(activity.unknown){
+                     self.motion.text = @"Unknown";
+                     _refiner.motionStatus = MOTION_UNKNOWN;
+                 }
+                 else if(activity.stationary){
+                     self.motion.text = @"Stationary";
+                     _refiner.motionStatus = MOTION_STATIONARY;
+                 }
+                 else if(activity.walking){
+                     self.motion.text = @"Walking";
+                     _refiner.motionStatus = MOTION_WALKING;
+                     
+                 }
+                 else if(activity.running){
+                     self.motion.text = @"Running";
+                     _refiner.motionStatus = MOTION_RUNNING;
+                 }
+                 else if(activity.cycling){
+                     self.motion.text = @"Cycling";
+                     _refiner.motionStatus = MOTION_CYCLING;
+                     
+                 }
+                 else if(activity.automotive){
+                     self.motion.text = @"Automotive";
+                     _refiner.motionStatus = MOTION_AUTO;
+                     
+                 }
+             });
+         }];
+        self.pedometerStatus.text = [NSString stringWithFormat:@"Pedometer Started"];
+        // start live tracking
+        [self.pedometer startPedometerUpdatesFromDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+            
+            // this block is called for each live update
+            
+            [self updateLabels:pedometerData];
+        }];
     }
     else{
        NSLog(@"CoreMotion is disabled or not supported.");
@@ -276,9 +324,57 @@
             break;
     }
 }
-- (IBAction)startButton:(id)sender {
+
+- (void)updateLabels:(CMPedometerData *)pedometerData {
+    NSLog(@"%@", pedometerData);
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
+    formatter.maximumFractionDigits = 2;
+    
+    // step counting
+    if ([CMPedometer isStepCountingAvailable]) {
+        self.steps.text = [NSString stringWithFormat:@"#Steps %@", [formatter stringFromNumber:pedometerData.numberOfSteps]];
+    } else {
+        self.steps.text = @"#Steps N/A";
+    }
+    
+    // distance
+    if ([CMPedometer isDistanceAvailable]) {
+        self.distance.text = [NSString stringWithFormat:@"Distance %@ m", [formatter stringFromNumber:pedometerData.distance]];
+    } else {
+        self.distance.text = @"Distance N/A";
+    }
+    
+    // pace
+    if ([CMPedometer isPaceAvailable] && pedometerData.currentPace) {
+        self.pace.text = [NSString stringWithFormat:@"Pace %@ s/m", [formatter stringFromNumber:pedometerData.currentPace]];
+        _refiner.avgSpeed = (1 / [pedometerData.currentPace floatValue] / 1000);
+    } else {
+        self.pace.text = @"Pace N/A";
+    }
+    
+    // cadence
+    if ([CMPedometer isCadenceAvailable] && pedometerData.currentCadence) {
+        self.cadence.text = [NSString stringWithFormat:@"Cadence %@ steps/sec", [formatter stringFromNumber: pedometerData.currentCadence]];
+    } else {
+        self.cadence.text = @"Cadence N/A";
+    }
+    
+}
+
+- (void)updateActivityLabels:(CMMotionActivity *)activity {
+
 }
 
 - (IBAction)stopButton:(id)sender {
+    [self.pedometer stopPedometerUpdates];
+    self.pedometerStatus.text = [NSString stringWithFormat:@"Pedometer Stopped"];
+
+}
+
+
+- (IBAction)activityStopButton:(id)sender {
+    [self.activityManager stopActivityUpdates];
+    self.activityStatus.text = [NSString stringWithFormat:@"Motion Stopped"];
+
 }
 @end

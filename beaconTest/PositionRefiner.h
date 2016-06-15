@@ -11,12 +11,13 @@
 #include <sys/time.h>
 #include <stdlib.h>
 #define WALKING_SPEED_THRESHOLD 0.003
-#define STEP_LENGTH 0.4
-#define PEDOMETER_UPDATE_INTERVAL 100
-#define STATIONARY 0
-#define WALKING 1
-#define RUNNING 2
-#define CYCLING 3
+#define MOTION_UNKNOWN -1
+#define MOTION_STATIONARY 0
+#define MOTION_WALKING 1
+#define MOTION_RUNNING 2
+#define MOTION_CYCLING 3
+#define MOTION_AUTO 4
+
 
 @interface PositionRefiner : NSObject
 

@@ -31,13 +31,6 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cadence" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cR3-a1-mjt">
-                                        <rect key="frame" x="8" y="243" width="304" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Steps" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qlG-7d-BaY">
                                         <rect key="frame" x="8" y="129" width="304" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -45,22 +38,50 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Taa-WR-eEh">
-                                        <rect key="frame" x="14" y="308" width="34" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gva-rw-nSt">
+                                        <rect key="frame" x="8" y="25" width="304" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Start"/>
-                                        <connections>
-                                            <action selector="startButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="teT-gC-b3A"/>
-                                        </connections>
-                                    </button>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pedometer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l91-me-40x">
+                                        <rect key="frame" x="8" y="58" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oQy-cS-faO">
-                                        <rect key="frame" x="15" y="346" width="32" height="30"/>
+                                        <rect key="frame" x="14" y="346" width="112" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Stop"/>
+                                        <state key="normal" title="Pedometer Stop"/>
                                         <connections>
                                             <action selector="stopButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="RP5-Xx-i8Q"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="u5e-ZZ-wXR">
+                                        <rect key="frame" x="225" y="346" width="87" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Activity Stop"/>
+                                        <connections>
+                                            <action selector="activityStopButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="V9D-wS-shy"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cadence" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cR3-a1-mjt">
+                                        <rect key="frame" x="8" y="243" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Motion" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AZO-LK-rP8">
+                                        <rect key="frame" x="8" y="281" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </view>
                             <view contentMode="scaleToFill" id="R15-Zt-JTr" userLabel="Beacons">
@@ -111,16 +132,19 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="1500" height="568"/>
                     <connections>
+                        <outlet property="activityStatus" destination="gva-rw-nSt" id="NU4-sh-ryd"/>
                         <outlet property="beaconsView" destination="R15-Zt-JTr" id="N4Y-4G-h9m"/>
-                        <outlet property="cadence" destination="cR3-a1-mjt" id="MNi-D0-dON"/>
-                        <outlet property="distance" destination="fqy-Fd-O2j" id="cYm-QI-iec"/>
+                        <outlet property="cadence" destination="cR3-a1-mjt" id="gk6-A2-PYq"/>
+                        <outlet property="distance" destination="fqy-Fd-O2j" id="wwD-QB-95K"/>
                         <outlet property="lable" destination="b72-Nb-nWb" id="vAJ-dN-cQf"/>
                         <outlet property="mapView" destination="x5T-N4-ysR" id="hMt-AM-F2e"/>
+                        <outlet property="motion" destination="AZO-LK-rP8" id="Ngm-oz-es8"/>
                         <outlet property="motionView" destination="VLv-eP-vrZ" id="2M8-aN-gLK"/>
-                        <outlet property="pace" destination="F6Q-Us-t2d" id="bvn-4R-mOc"/>
+                        <outlet property="pace" destination="F6Q-Us-t2d" id="xKu-pi-H7E"/>
+                        <outlet property="pedometerStatus" destination="l91-me-40x" id="DVt-gj-yUy"/>
                         <outlet property="refined" destination="CME-hR-MS2" id="Pjg-hv-KFr"/>
                         <outlet property="segments" destination="fEm-lT-aCl" id="9LH-py-MKK"/>
-                        <outlet property="steps" destination="qlG-7d-BaY" id="p6B-JJ-HE1"/>
+                        <outlet property="steps" destination="qlG-7d-BaY" id="adN-45-7QH"/>
                         <outlet property="tableView" destination="XPT-go-9y7" id="4AC-Ii-Nhr"/>
                     </connections>
                 </viewController>

@@ -21,8 +21,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *pace;
 @property (weak, nonatomic) IBOutlet UILabel *cadence;
 @property (weak, nonatomic) IBOutlet UILabel *steps;
-- (IBAction)startButton:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *activityStatus;
+@property (weak, nonatomic) IBOutlet UILabel *pedometerStatus;
+@property (weak, nonatomic) IBOutlet UILabel *motion;
 - (IBAction)stopButton:(id)sender;
+- (IBAction)activityStopButton:(id)sender;
 
 @end
 

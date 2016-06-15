@@ -11,6 +11,8 @@
 -(id) init{
     self = [super init];
     _started = false;
+    _motionStatus = MOTION_UNKNOWN;
+    _avgSpeed = -1.0f;
     return self;
 }
 
@@ -39,15 +41,27 @@
     NSLog(@"speed %f", purportedSpeed);
     NSLog(@"prevCoords: %f, %f", _prevCoords.x, _prevCoords.y);
     userCoord newCoords;
-    if (purportedSpeed <= 0.003) {
+    float walkingSpeedThreshold = (_avgSpeed < 0)? WALKING_SPEED_THRESHOLD : (_avgSpeed * 2.0);
+    if(_motionStatus == MOTION_STATIONARY){
+        // Do not update coord if user is stationary.
+        newCoords = _prevCoords;
+    }
+    else if (purportedSpeed <= walkingSpeedThreshold) {
         // It is possible the user walked here fast enough, so the coords are valid
         newCoords = coord;
     } else {
         // It is unlikely the user walked here fast enough, so only move them a little bit.
         // Move the user slightly in the direction they were calculated to be in, just in case
         // they really are moving to that position.
-        newCoords.x = _prevCoords.x + (x * 0.20);
-        newCoords.y = _prevCoords.y + (y * 0.20);
+        if(_avgSpeed > 0){
+            double motionDistance = _avgSpeed * elapsedTime;
+            newCoords.x = _prevCoords.x + 1.30 * (x * (motionDistance / distanceTraveled));
+            newCoords.y = _prevCoords.y + 1.30 * (y * (motionDistance / distanceTraveled));
+        }
+        else{
+            newCoords.x = _prevCoords.x + (x * 0.20);
+            newCoords.y = _prevCoords.y + (y * 0.20);
+        }
     }
     
     _prevTime = curTime;
