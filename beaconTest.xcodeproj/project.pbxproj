@@ -183,7 +183,7 @@
 				TargetAttributes = {
 					AD99BC5D19DDA6900085CC1A = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = 96QKJNA6AA;
+						DevelopmentTeam = WSRUXZCQ4B;
 					};
 				};
 			};
@@ -344,15 +344,17 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = WSRUXZCQ4B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = beaconTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.minrvaproject.beaconTest;
+				PRODUCT_BUNDLE_IDENTIFIER = im.mew.beaconSample;
 				PRODUCT_NAME = beaconTest;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -363,15 +365,17 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = WSRUXZCQ4B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = beaconTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.minrvaproject.beaconTest;
+				PRODUCT_BUNDLE_IDENTIFIER = im.mew.beaconSample;
 				PRODUCT_NAME = beaconTest;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

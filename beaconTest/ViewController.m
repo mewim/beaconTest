@@ -79,60 +79,6 @@
 
     NSLog(@"%@", _beconDict);
     
-    // Check if CoreMotion is enabled
-    if([CMMotionActivityManager isActivityAvailable] && [CMPedometer isDistanceAvailable]){
-        NSLog(@"CoreMotion is enabled.");
-        // Init Pedometer and ActivityManager
-        _pedometer = [[CMPedometer alloc] init];
-        _activityManager = [[CMMotionActivityManager alloc] init];
-        
-        // Start Activity Manager and Pedometer
-        self.activityStatus.text = [NSString stringWithFormat:@"Motion Started"];
-        [self.activityManager startActivityUpdatesToQueue:
-        [[NSOperationQueue alloc] init]
-        withHandler:^(CMMotionActivity *activity) {
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 if(activity.unknown){
-                     self.motion.text = @"Unknown";
-                     _refiner.motionStatus = MOTION_UNKNOWN;
-                 }
-                 else if(activity.stationary){
-                     self.motion.text = @"Stationary";
-                     _refiner.motionStatus = MOTION_STATIONARY;
-                 }
-                 else if(activity.walking){
-                     self.motion.text = @"Walking";
-                     _refiner.motionStatus = MOTION_WALKING;
-                     
-                 }
-                 else if(activity.running){
-                     self.motion.text = @"Running";
-                     _refiner.motionStatus = MOTION_RUNNING;
-                 }
-                 else if(activity.cycling){
-                     self.motion.text = @"Cycling";
-                     _refiner.motionStatus = MOTION_CYCLING;
-                     
-                 }
-                 else if(activity.automotive){
-                     self.motion.text = @"Automotive";
-                     _refiner.motionStatus = MOTION_AUTO;
-                     
-                 }
-             });
-         }];
-        self.pedometerStatus.text = [NSString stringWithFormat:@"Pedometer Started"];
-        // start live tracking
-        [self.pedometer startPedometerUpdatesFromDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
-            
-            // this block is called for each live update
-            
-            [self updateLabels:pedometerData];
-        }];
-    }
-    else{
-       NSLog(@"CoreMotion is disabled or not supported.");
-    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -365,16 +311,4 @@
 
 }
 
-- (IBAction)stopButton:(id)sender {
-    [self.pedometer stopPedometerUpdates];
-    self.pedometerStatus.text = [NSString stringWithFormat:@"Pedometer Stopped"];
-
-}
-
-
-- (IBAction)activityStopButton:(id)sender {
-    [self.activityManager stopActivityUpdates];
-    self.activityStatus.text = [NSString stringWithFormat:@"Motion Stopped"];
-
-}
 @end
