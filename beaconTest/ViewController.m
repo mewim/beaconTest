@@ -16,6 +16,7 @@
 #import "BeaconDict.h"
 #import "Trilateration.m"
 #import "PositionRefiner.h"
+#define SAMPLE_SERVER @""
 
 @interface ViewController () <ESTBeaconManagerDelegate>
 @property (nonatomic, strong) ESTBeacon *beacon;
@@ -26,6 +27,14 @@
 @property (nonatomic, strong) PositionRefiner *refiner;
 @property (nonatomic, strong) CMPedometer *pedometer;
 @property (nonatomic, strong) CMMotionActivityManager* activityManager;
+@property (nonatomic, strong) NSDictionary* sampleDict;
+@property (nonatomic, strong) NSNumber* sprinklerX;
+@property (nonatomic, strong) NSNumber* sprinklerY;
+@property (weak, nonatomic) IBOutlet UIStepper *stepperX;
+@property (weak, nonatomic) IBOutlet UIStepper *stepperY;
+@property (weak, nonatomic) IBOutlet UITextField *XTextField;
+@property (weak, nonatomic) IBOutlet UITextField *YTextfield;
+@property (weak, nonatomic) IBOutlet UILabel *recordedLabel;
 @end
 
 @implementation ViewController
@@ -34,7 +43,63 @@
     UIImageView *userLocation;
 }
 
+- (IBAction)sprinklerXChanged:(id)sender {
+    UITextField * textField = (UITextField *)sender;
+    NSString* text = [textField text];
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    _sprinklerX = [f numberFromString:text];
+    if(_sprinklerX == nil){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Sprinkler X!"
+                                                message:nil
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+    else{
+        [_stepperX setValue:[_sprinklerX doubleValue]];
+    }
+}
+
+- (IBAction)sprinklerYChanged:(id)sender {
+    UITextField * textField = (UITextField *)sender;
+    NSString* text = [textField text];
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    _sprinklerY = [f numberFromString:text];
+    if(_sprinklerY == nil){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Sprinkler Y!"
+                                                        message:nil
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+    else{
+        [_stepperY setValue:[_sprinklerY doubleValue]];
+    }
+}
+
+- (IBAction)stepperXPressed:(id)sender {
+    UIStepper* stepper = (UIStepper*) sender;
+    NSInteger value = [stepper value];
+    _sprinklerX = [NSNumber numberWithInteger:value];
+    _XTextField.text = [NSString stringWithFormat:@"%ld", (long)[_sprinklerX integerValue]];
+}
+
+- (IBAction)stepperYPressed:(id)sender {
+    UIStepper* stepper = (UIStepper*) sender;
+    NSInteger value = [stepper value];
+    _sprinklerY = [NSNumber numberWithInteger:value];
+    _YTextfield.text = [NSString stringWithFormat:@"%ld", (long)[_sprinklerY integerValue]];
+}
+
 - (void)viewDidLoad {
+    _sampleDict = nil;
+    _sprinklerX = [NSNumber numberWithInteger:0];
+    _sprinklerY = [NSNumber numberWithInteger:0];
+
     [super viewDidLoad];
     
     // Register segment control
@@ -72,7 +137,7 @@
     
     //MUST have for IOS8
     [self.beaconManager requestAlwaysAuthorization];
-    
+
     _beconDict = [BeaconInfo createBeaconDict];
     _tableData = [NSMutableArray array];
 
@@ -109,13 +174,59 @@
 
 -(void)beaconManager:(ESTBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
-    NSLog(@"beacons.count: %lu", (unsigned long)beacons.count);
+//    NSLog(@"beacons.count: %lu", (unsigned long)beacons.count);
 //    NSSortDescriptor *accuracyDescriptor = [[NSSortDescriptor alloc] initWithKey:@"accuracy" ascending:YES];
 //    NSArray *sortDescriptors = @[accuracyDescriptor];
 //    NSArray *sortedBeacons = [beacons sortedArrayUsingDescriptors:sortDescriptors];
     if (beacons.count > 0) {
         [self updateTableData:beacons];
+        if(_sampleDict != nil){
+            NSMutableArray* samples = (NSMutableArray*)_sampleDict[@"samples"];
+            NSInteger length = [samples count];
+            if(length < 100){
+                [self recordSample:beacons samplesArray:samples];
+                length = [samples count];
+            }
+            [_recordedLabel setText:[NSString stringWithFormat:@"%ld/100", (long)length]];
+            if(length >= 100){
+                
+                NSError *error;
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_sampleDict
+                                                                   options:NSJSONWritingPrettyPrinted
+                                                                     error:&error];
+                
+                if (!jsonData) {
+                    NSLog(@"JSON Serialization error: %@", error);
+                } else {
+                    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                    
+                }
+                _sampleDict = nil;
+            }
+        }
+        
     }
+}
+
+-(void)recordSample:(NSArray*) beacons
+       samplesArray:(NSMutableArray*) samples{
+    NSMutableArray* sample =[[NSMutableArray alloc] init];
+    for(int i =0; i < [beacons count]; ++i){
+        ESTBeacon* currBeacon = beacons[i];
+        CLLocationAccuracy accuracy = [currBeacon accuracy];
+        CLProximity proximity = [currBeacon accuracy];
+        NSInteger rssi  = [currBeacon rssi];
+        
+        NSDictionary* beacon = @{
+                                 @"major" : [currBeacon major],
+                                 @"minor" : [currBeacon minor],
+                                 @"proximity": [NSNumber numberWithInteger:proximity] ,
+                                 @"distance": [NSNumber numberWithDouble:accuracy] ,
+                                 @"rssi": [NSNumber numberWithInteger:rssi]
+                                 };
+        [sample addObject:beacon];
+    }
+    [samples addObject:sample];
 }
 
 -(NSMutableArray *) getPoint:(NSInteger)x joinY:(NSInteger)y{
@@ -123,6 +234,18 @@
     [retval addObject:[NSNumber numberWithFloat:((625.12 * y - 312.56) / 100)]];
     [retval addObject:[NSNumber numberWithFloat:((4674.28 - 623.24 * x)/100)]];
     return retval;
+}
+
+- (IBAction)recordButtonPressed:(id)sender {
+    _sampleDict = @{
+                    @"sprinkler_x": _sprinklerX,
+                    @"sprinkler_y": _sprinklerY,
+                    @"samples": [[NSMutableArray alloc]init]
+                    };
+}
+
+- (IBAction)resetButtonPressed:(id)sender {
+    
 }
 
 -(void)updateTableData:(NSArray *)beacons

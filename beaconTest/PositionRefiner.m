@@ -27,19 +27,19 @@
     long curTime = [self getCurTime];
     long elapsedTime = curTime - _prevTime;
     if (elapsedTime == 0) elapsedTime++; // Just to prevent crashes from dividing by zero
-    NSLog(@"elapsedTime is %ld", elapsedTime);
+    // NSLog(@"elapsedTime is %ld", elapsedTime);
     
     double x = coord.x - _prevCoords.x;
     double y = coord.y - _prevCoords.y;
     double distanceTraveled = fabs(x) + fabs(y); // Use Manhattan distance for now
-    NSLog(@"Distance is %f, x is %f,  y is %f", distanceTraveled, x, y);
+    // NSLog(@"Distance is %f, x is %f,  y is %f", distanceTraveled, x, y);
 
     // Now check if user could have actually traveled that distance in that time
     // Average walking speed according to Wikipedia is 1.4 m/s or 0.14 cm/ms
     // So we will use 2.0 as our cutoff for now
     double purportedSpeed = distanceTraveled / elapsedTime;
-    NSLog(@"speed %f", purportedSpeed);
-    NSLog(@"prevCoords: %f, %f", _prevCoords.x, _prevCoords.y);
+    // NSLog(@"speed %f", purportedSpeed);
+    // NSLog(@"prevCoords: %f, %f", _prevCoords.x, _prevCoords.y);
     userCoord newCoords;
     float walkingSpeedThreshold = (_avgSpeed < 0)? WALKING_SPEED_THRESHOLD : (_avgSpeed * 2.0);
     if(_motionStatus == MOTION_STATIONARY){
@@ -66,7 +66,7 @@
     
     _prevTime = curTime;
     _prevCoords = newCoords;
-    NSLog(@"newCoords: %f, %f", newCoords.x, newCoords.y);
+    // NSLog(@"newCoords: %f, %f", newCoords.x, newCoords.y);
     return newCoords;
 }
 
