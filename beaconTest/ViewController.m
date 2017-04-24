@@ -16,7 +16,6 @@
 #import "BeaconDict.h"
 #import "Trilateration.m"
 #import "PositionRefiner.h"
-#define SAMPLE_SERVER @""
 
 @interface ViewController () <ESTBeaconManagerDelegate>
 @property (nonatomic, strong) ESTBeacon *beacon;
@@ -35,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *XTextField;
 @property (weak, nonatomic) IBOutlet UITextField *YTextfield;
 @property (weak, nonatomic) IBOutlet UILabel *recordedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *connectionLabel;
 @end
 
 @implementation ViewController
@@ -97,8 +97,10 @@
 
 - (void)viewDidLoad {
     _sampleDict = nil;
-    _sprinklerX = [NSNumber numberWithInteger:0];
-    _sprinklerY = [NSNumber numberWithInteger:0];
+    _sprinklerX = [NSNumber numberWithInteger:1];
+    _sprinklerY = [NSNumber numberWithInteger:1];
+    [_stepperX setValue:1];
+    [_stepperY setValue:1];
 
     [super viewDidLoad];
     
@@ -171,6 +173,37 @@
     NSLog(@"Status:%d", status);
 }
 
+-(void)post:(NSData*)json{
+    NSString *jsonString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:@"http://beacon-res.herokuapp.com/api/samples"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"content-type"];
+    [request setValue:@"iOS" forHTTPHeaderField:@"User-Agent"];
+    [request setHTTPBody:json];
+
+    NSURLSession *session = [NSURLSession sharedSession];
+    [_connectionLabel setText:@"Connecting..."];
+    [[session dataTaskWithRequest:request
+            completionHandler:^(NSData *data,
+                                NSURLResponse *response,
+                                NSError *error) {
+                // handle response
+                NSLog(@"Response received.");
+
+                if(error){
+                    NSLog(@"%@", error);
+                }
+
+
+                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                NSLog(@"%@", [NSString stringWithFormat:@"HTTP %ld", (long)[httpResponse statusCode]]);
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[self connectionLabel] setText:[NSString stringWithFormat:@"HTTP %ld", (long)[httpResponse statusCode]]];
+                });
+            }] resume];
+}
 
 -(void)beaconManager:(ESTBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
@@ -188,18 +221,21 @@
                 length = [samples count];
             }
             [_recordedLabel setText:[NSString stringWithFormat:@"%ld/100", (long)length]];
-            if(length >= 100){
-                
+            if(length == 100){
                 NSError *error;
                 NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_sampleDict
                                                                    options:NSJSONWritingPrettyPrinted
                                                                      error:&error];
                 
                 if (!jsonData) {
-                    NSLog(@"JSON Serialization error: %@", error);
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"JSON Serialization error"
+                                                                    message:error
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                    [alert show];
                 } else {
-                    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-                    
+                    [self post:jsonData];
                 }
                 _sampleDict = nil;
             }
@@ -245,7 +281,9 @@
 }
 
 - (IBAction)resetButtonPressed:(id)sender {
-    
+    _sampleDict = nil;
+    [_recordedLabel setText:@"0/100"];
+    [_connectionLabel setText:@"Unknown"];
 }
 
 -(void)updateTableData:(NSArray *)beacons

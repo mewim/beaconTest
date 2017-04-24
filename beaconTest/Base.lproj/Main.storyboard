@@ -140,8 +140,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Unknown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3b-L0-suc">
-                                        <rect key="frame" x="136" y="631" width="72" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="None" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3b-L0-suc">
+                                        <rect key="frame" x="110" y="631" width="125" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -167,6 +167,7 @@
                         <outlet property="XTextField" destination="NFg-Oa-XDp" id="nxZ-6n-wDy"/>
                         <outlet property="YTextfield" destination="qjN-cN-6hD" id="eLT-HL-ajd"/>
                         <outlet property="beaconsView" destination="R15-Zt-JTr" id="N4Y-4G-h9m"/>
+                        <outlet property="connectionLabel" destination="x3b-L0-suc" id="fKl-Wn-nYR"/>
                         <outlet property="lable" destination="b72-Nb-nWb" id="vAJ-dN-cQf"/>
                         <outlet property="mapView" destination="x5T-N4-ysR" id="hMt-AM-F2e"/>
                         <outlet property="recordedLabel" destination="PON-Vg-bBN" id="aBd-jW-bPI"/>
